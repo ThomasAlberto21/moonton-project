@@ -1,8 +1,11 @@
 import Authenticated from "@/Layouts/Authenticated/index";
 import SubscriptionCard from "@/Components/SubscriptionCard";
+import {Head} from '@inertiajs/inertia-react'
 
 export default function SubscriptionPlan() {
     return (
+        <>
+        <Head title="Payments" />
         <Authenticated>
             <div className="py-20 flex flex-col items-center">
                 <div className="text-black font-semibold text-[26px] mb-3">
@@ -32,5 +35,6 @@ export default function SubscriptionPlan() {
             </div>
             <div className="ml-[300px] px-[50px]"></div>
         </Authenticated>
+        </>
     );
 }
