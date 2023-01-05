@@ -21,8 +21,8 @@ class MovieTableSeeder extends Seeder
                 'slug' => 'avangers-infinity-wars',
                 'category' => 'Action',
                 'video_url' => 'https://youtu.be/6ZfuNTqbHE8',
-                'thumbnail' => 'https://cf.shopee.co.id/file/951c211df63ec11a09049b08407c260e',
-                'rating' => 9.0,
+                'thumbnail' => 'https://wallpaperaccess.com/full/95489.jpg',
+                'rating' => 4.0,
                 'is_featured' => 1,
             ],
             [
@@ -31,7 +31,7 @@ class MovieTableSeeder extends Seeder
                 'category' => 'Action',
                 'video_url' => 'https://youtu.be/0WWzgGyAH6Y',
                 'thumbnail' => 'https://images3.alphacoders.com/606/606650.jpg',
-                'rating' => 9.5,
+                'rating' => 4.5,
                 'is_featured' => 0,
             ],
             [
@@ -40,7 +40,7 @@ class MovieTableSeeder extends Seeder
                 'category' => 'Action',
                 'video_url' => 'https://youtu.be/JfVOs4VSpmA',
                 'thumbnail' => 'https://pbs.twimg.com/media/FEP_svNWQAgh8qH?format=jpg&name=900x900',
-                'rating' => 9.2,
+                'rating' => 4.2,
                 'is_featured' => 0,
             ]
         ];
