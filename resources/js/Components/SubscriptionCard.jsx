@@ -12,7 +12,7 @@ export default function SubscriptionCard({
         <>
             {/* Basic */}
             {!isPremium && (
-                <div className="flex flex-col gap-[30px] py-[30px] px-7 outline outline-1 outline-[#F1F1F1] rounded-[26px] text-black w-[300px] h-[max-content]">
+                <div className="flex flex-col gap-[30px] py-[30px] px-7 outline outline-[3] outline-[#F1F1F1] rounded-[26px] text-black w-[300px] h-[max-content]">
                     <div>
                         <div className="text-sm mb-2">{name}</div>
                         <div className="text-[28px] font-bold">
@@ -36,8 +36,8 @@ export default function SubscriptionCard({
                     </div>
 
                     <div onClick={onSelectSubscription}>
-                        <Button type="button" variant="white-outline">
-                            <span className="text-base">Start {name}</span>
+                        <Button type="button">
+                            <span className="text-base font-semibold">Start {name}</span>
                         </Button>
                     </div>
                 </div>
