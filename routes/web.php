@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\MovieController;
 use App\Http\Controllers\User\SubscriptionPlanController;
+use App\Http\Controllers\Admin\MovieController as AdminMovieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ use App\Http\Controllers\User\SubscriptionPlanController;
 
 Route::redirect('/', '/login');
 
+// ! user
 Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('user.dashboard.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
 
@@ -31,6 +33,15 @@ Route::middleware(['auth', 'role:user'])->prefix('dashboard')->name('user.dashbo
 
     Route::post('subscription-plan/{subscriptionPlan}/user-subscribe', [SubscriptionPlanController::class, 'userSubscribe'])->name('subscriptionPlan.userSubscribe')->middleware('checkUserSubscription:false');
 });
+
+
+// ! Admin
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.dashboard.')->group(function () {
+    Route::put('movie/{movie}/restore', [AdminMovieController::class, 'restore'])->name('movie.restore');
+
+    Route::resource('movie', AdminMovieController::class);
+});
+
 
 Route::prefix('prototype')->name('prototype.')->group(function () {
     route::get('/login', function () {
