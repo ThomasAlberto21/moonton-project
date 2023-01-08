@@ -5,15 +5,11 @@ import Input from "@/Components/Input";
 import Checkbox from "@/Components/Checkbox";
 import { Head, useForm } from "@inertiajs/inertia-react";
 import Button from "@/Components/Button";
+import { Inertia } from "@inertiajs/inertia";
 
-export default function Create({ auth }) {
-    const { setData, post, processing, errors } = useForm({
-        name: "",
-        category: "",
-        video_url: "",
-        thumbnail: "",
-        rating: "",
-        is_featured: false,
+export default function Create({ auth, movie }) {
+    const { data, setData, processing, errors } = useForm({
+        ...movie,
     });
 
     const onHandleChange = (event) => {
@@ -28,14 +24,21 @@ export default function Create({ auth }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("admin.dashboard.movie.store"));
+        if (data.thumbnail === movie.thumbnail) {
+            delete data.thumbnail;
+        }
+
+        Inertia.post(route("admin.dashboard.movie.update", movie.id), {
+            _method: "PUT",
+            ...data,
+        });
     };
 
     return (
         <Authenticated auth={auth}>
-            <Head title="Admin Create - Movie" />
+            <Head title="Admin Update - Movie" />
 
-            <h3 className="text-xl font-bold">Insert A New Movie</h3>
+            <h3 className="text-xl font-bold">Update Movie: {movie.name}</h3>
             <hr className="mb-6" />
             <ValidationErrors errors={errors} />
             <form onSubmit={submit}>
@@ -48,6 +51,7 @@ export default function Create({ auth }) {
                 <Input
                     type="text"
                     name="name"
+                    defaultValue={movie.name}
                     className=" outline outline-1 outline-[#FB6908] bg-transparent"
                     handleChange={onHandleChange}
                     placeholder="Enter the name of the movie"
@@ -63,6 +67,7 @@ export default function Create({ auth }) {
                 <Input
                     type="text"
                     name="category"
+                    defaultValue={movie.category}
                     className=" outline outline-1 outline-[#FB6908] bg-transparent"
                     handleChange={onHandleChange}
                     placeholder="Enter the category of the movie"
@@ -78,6 +83,7 @@ export default function Create({ auth }) {
                 <Input
                     type="url"
                     name="video_url"
+                    defaultValue={movie.video_url}
                     className=" outline outline-1 outline-[#FB6908] bg-transparent"
                     handleChange={onHandleChange}
                     placeholder="Enter the video url of the movie"
@@ -89,6 +95,11 @@ export default function Create({ auth }) {
                     forInput="thumbnail"
                     value="Thumbnail"
                     className={`font-bold mb-2  mt-4`}
+                />
+
+                <img
+                    src={`storage/${movie.thumbnail}`}
+                    className="w-40 rounded"
                 />
                 <Input
                     type="file"
@@ -109,6 +120,7 @@ export default function Create({ auth }) {
                 <Input
                     type="number"
                     name="rating"
+                    defaultValue={movie.rating}
                     className=" outline outline-1 outline-[#FB6908] bg-transparent"
                     handleChange={onHandleChange}
                     placeholder="Enter the rating of the movie"
@@ -121,13 +133,16 @@ export default function Create({ auth }) {
                         value="Is Featured"
                         className={`font-bold mr-3 mt-1`}
                     />
+
                     <Checkbox
                         name="is_featured"
                         handleChange={(e) =>
-                            setData("is_featured", e.target.checked)
+                            setData("is_featured ", e.target.checked)
                         }
+                        checked={movie.is_featured}
                     />
                 </div>
+
                 <Button type="submit" className="mt-10" processing={processing}>
                     Save
                 </Button>
